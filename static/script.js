@@ -15,8 +15,8 @@ function startUpdateCycle() {
 }
 
 $(document).ready(function() {
-    tickers.array.forEach(function(ticker) {
-        addTickerToGrid();
+    tickers.forEach(function(ticker) {
+        addTickerToGrid(ticker);
     });
 
     updatePrices();
@@ -27,7 +27,7 @@ $(document).ready(function() {
         if (!tickers.includes(newTicker)) {
             tickers.push(newTicker);
             localStorage.setItem('tickers', JSON.stringify(tickers));
-            addTickerToGrid();
+            addTickerToGrid(newTicker);
         }
         $('new-ticker').val('');
         updatePrices();
@@ -44,12 +44,7 @@ $(document).ready(function() {
 });
 
 function addTickerToGrid(ticker) {
-    $('#ticker-grid').append(`<div id="${ticker}" class="stock-box">
-        <h2>${ticker}</h2>
-        <p id="${ticker}-price"></p>
-        <p id="${ticker}-pct"></p>
-        <button class="remove-btn" data-ticker="${ticker}">Remove</button>
-        </div>`);
+    $('#tickers-grid').append(`<div id="${ticker}" class="stock-box"><h2>${ticker}</h2><p id="${ticker}-price"></p><p id="${ticker}-pct"></p><button class="remove-btn" data-ticker="${ticker}">Remove</button></div>`);
 }
 
 function updatePrices() {
